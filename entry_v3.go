@@ -12,6 +12,7 @@ import (
 	"github.com/davyxu/tabtoy/v3/gen/jsondata2"
 	"github.com/davyxu/tabtoy/v3/gen/jsontype"
 	"github.com/davyxu/tabtoy/v3/gen/luasrc"
+	"github.com/davyxu/tabtoy/v3/gen/tssrc"
 	"github.com/davyxu/tabtoy/v3/helper"
 	"github.com/davyxu/tabtoy/v3/model"
 	"github.com/davyxu/tabtoy/v3/report"
@@ -40,6 +41,7 @@ var (
 		{"cssrc", cssrc.Generate, paramCSharpOut},
 		{"bindata", bindata.Generate, paramBinaryOut},
 		{"javasrc", javasrc.Generate, paramJavaOut},
+		{"tssrc", tssrc.Generate, paramTypeScriptOut},
 	}
 )
 

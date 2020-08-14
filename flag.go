@@ -39,4 +39,5 @@ var (
 	paramTypeOut           = flag.String("type_out", "", "output table types(*.json)")
 	paramCppOut            = flag.String("cpp_out", "", "output c++ format (*.cpp)")
 	paramJavaOut           = flag.String("java_out", "", "output java code (*.java)")
+	paramTypeScriptOut	   = flag.String("ts_out", "", "output typescript code (*.ts)")
 )
