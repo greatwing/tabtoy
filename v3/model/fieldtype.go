@@ -5,11 +5,12 @@ import (
 )
 
 type FieldType struct {
-	InputFieldName string `tb_name:"输入字段"`
-	GoFieldName    string `tb_name:"Go字段"`
+	InputFieldName string `tb_name:"输入字段"` // 表中输入的类型
+	GoFieldName    string `tb_name:"Go字段"` //  转换为go的类型
 	CSFieldName    string `tb_name:"C#字段"`
 	JavaFieldName  string `tb_name:"Java字段"`
-	TypeScriptName string `tb_name:"TypeScript字段"`
+	PBFieldName    string `tb_name:"Protobuf字段"`
+    TypeScriptName string `tb_name:"TypeScript字段"`
 	DefaultValue   string `tb_name:"默认值"`
 }
 
@@ -17,19 +18,20 @@ type FieldType struct {
 
 var (
 	FieldTypes = []*FieldType{
-		{"int16", "int16", "Int16", "int", "number", "0"},
-		{"int32", "int32", "Int32", "int", "number", "0"},
-		{"int64", "int64", "Int64", "long", "number", "0"},
-		{"int", "int32", "Int32", "int", "number", "0"},
-		{"uint16", "uint16", "UInt16", "int", "number", "0"},
-		{"uint32", "uint32", "UInt32", "int", "number", "0"},
-		{"uint64", "uint64", "UInt64", "long", "number", "0"},
-		{"float", "float32", "float", "float", "number", "0"},
-		{"double", "float64", "double", "double", "number", "0"},
-		{"float32", "float32", "float", "float", "number", "0"},
-		{"float64", "float64", "double", "double", "number", "0"},
-		{"bool", "bool", "bool", "boolean", "boolean", "FALSE"},
-		{"string", "string", "string", "String", "string", ""},
+		{"int16", "int16", "Int16", "int", "int32", "number", "0"},
+		{"int32", "int32", "Int32", "int", "int32", "number", "0"},
+		{"int64", "int64", "Int64", "long", "int64", "number", "0"},
+		{"int", "int32", "Int32", "int", "int32", "number", "0"},
+		{"uint", "uint32", "UInt32", "int", "uint32", "number", "0"},
+		{"uint16", "uint16", "UInt16", "int", "uint32", "number", "0"},
+		{"uint32", "uint32", "UInt32", "int", "uint32", "number", "0"},
+		{"uint64", "uint64", "UInt64", "long", "uint64", "number", "0"},
+		{"float", "float32", "float", "float", "float", "number", "0"},
+		{"double", "float64", "double", "double", "double", "number", "0"},
+		{"float32", "float32", "float", "float", "float", "number", "0"},
+		{"float64", "float64", "double", "double", "double", "number", "0"},
+		{"bool", "bool", "bool", "boolean", "bool", "boolean", "FALSE"},
+		{"string", "string", "string", "String", "string", "string", ""},
 	}
 
 	FieldTypeByType = map[string]*FieldType{}
@@ -65,6 +67,8 @@ func LanguagePrimitive(fieldType string, lanType string) string {
 			return ft.JavaFieldName
 		case "typescript":
 			return ft.TypeScriptName
+		case "pb":
+			return ft.PBFieldName
 		default:
 			panic("unknown lan type: " + lanType)
 		}

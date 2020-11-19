@@ -1,7 +1,6 @@
-package jsondata2
+package jsondata
 
 import (
-	"encoding/json"
 	"github.com/davyxu/tabtoy/util"
 	"github.com/davyxu/tabtoy/v3/model"
 	"strconv"
@@ -93,40 +92,4 @@ func wrapSingleValue(globals *model.Globals, valueType *model.TypeDefine, value 
 	}
 
 	return value
-}
-
-func Generate(globals *model.Globals) (data []byte, err error) {
-
-	fileData := map[string]interface{}{
-		"@Tool":    "github.com/davyxu/tabtoy",
-		"@Version": globals.Version,
-	}
-
-	for _, tab := range globals.Datas.AllTables() {
-
-		headers := globals.Types.AllFieldByName(tab.OriginalHeaderType)
-
-		var tabData []interface{}
-
-		for row := 1; row < len(tab.Rows); row++ {
-
-			rowData := map[string]interface{}{}
-			for col, header := range headers {
-
-				// 在单元格找到值
-				valueCell := tab.GetCell(row, col)
-
-				var value = wrapValue(globals, valueCell, header)
-
-				rowData[header.FieldName] = value
-			}
-
-			tabData = append(tabData, rowData)
-
-		}
-
-		fileData[tab.HeaderType] = tabData
-	}
-
-	return json.MarshalIndent(&fileData, "", "\t")
 }
