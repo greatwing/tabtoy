@@ -42,9 +42,13 @@ func transposeKVtoData(symbols *model.TypeTable, kvtab *model.DataTable) (ret *m
 		tf.ArraySplitter = arraySplitter.Value
 
 		// 将KV表的Tags转换过去
-		if tags != nil && tags.Value != "" {
-			tagsType := kvtab.HeaderByName("标记")
-			tf.Tags = strings.Split(tags.Value, tagsType.TypeInfo.ArraySplitter)
+		if tags != nil {
+			if tags.Value != "" {
+				tagsType := kvtab.HeaderByName("标记")
+				tf.Tags = strings.Split(tags.Value, tagsType.TypeInfo.ArraySplitter)
+			} else if tags.ValueList != nil {
+				tf.Tags = tags.ValueList
+			}
 		}
 
 		if symbols.FieldByName(tf.ObjectType, tf.FieldName) != nil {
