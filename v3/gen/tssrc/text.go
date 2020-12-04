@@ -68,8 +68,10 @@ export namespace {{.PackageName}} {
 		BuildData() {
 			{{range $ii, $idx := GetIndices $}}
 			this.{{$idx.Table.HeaderType}}By{{$idx.FieldInfo.FieldName}} = new Dictionary<{{TSType $idx.FieldInfo}}, {{$idx.Table.HeaderType}}>()
-			for(let v of this.{{$idx.Table.HeaderType}}) {
-				this.{{$idx.Table.HeaderType}}By{{$idx.FieldInfo.FieldName}}.setValue(v.{{$idx.FieldInfo.FieldName}}, v)
+			if(this.{{$idx.Table.HeaderType}}) {
+				for(let v of this.{{$idx.Table.HeaderType}}) {
+					this.{{$idx.Table.HeaderType}}By{{$idx.FieldInfo.FieldName}}.setValue(v.{{$idx.FieldInfo.FieldName}}, v)
+				}
 			}{{end}}
 		}
 	}
