@@ -47,11 +47,18 @@ func ConvertToCSV(inputFile TableFile) (outputFile TableFile) {
 	inSheet := inputFile.Sheets()[0]
 
 	// 遍历所有数据行
+	emptyRowCount := 0
 	for row := 0; ; row++ {
 
 		if inSheet.IsFullRowEmpty(row) {
-			break
+			emptyRowCount++
+			if emptyRowCount >= 10 {
+				break
+			} else {
+				continue
+			}
 		}
+		emptyRowCount = 0
 
 		rows := ReadSheetRow(inSheet, row)
 

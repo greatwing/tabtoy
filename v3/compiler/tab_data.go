@@ -50,11 +50,18 @@ func LoadDataTable(filegetter helper.FileGetter, fileName, headerType, resolveHe
 		LoadHeader(sheet, tab, resolveHeaderType, typeTab)
 
 		// 遍历所有数据行
+		emptyRowCount := 0
 		for row := 0; ; row++ {
 
 			if sheet.IsFullRowEmpty(row) {
-				break
+				emptyRowCount++
+				if emptyRowCount >= 10 {
+					break
+				} else {
+					continue
+				}
 			}
+			emptyRowCount = 0
 
 			// 读取每一行
 			readOneRow(sheet, tab, row)
